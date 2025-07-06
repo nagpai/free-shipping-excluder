@@ -1,3 +1,5 @@
+# This is WIP - Do not use yet.
+
 # Free Shipping Excluder for WooCommerce
 A WooCommerce extension that allows you to exclude specific products from being counted towards the free shipping threshold. It ensures that certain products do not contribute to the total cost required for free shipping, allowing you to control shipping costs more effectively.
 
