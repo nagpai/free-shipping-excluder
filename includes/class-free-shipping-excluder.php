@@ -31,12 +31,14 @@ class Free_Shipping_Excluder {
 	 * @return bool
 	 */
 	public function exclude_products_from_free_shipping( $is_available, $package, $free_shipping_method ): bool {
-		$excluded_product_ids = array( 16, 17 ); // Replace with actual product IDs to exclude.
+		// Get array of excluded product IDs from comma-separated string in settings.
+		$excluded_product_ids = $free_shipping_method->get_option( 'excluded_products', '' );
+		$excluded_product_ids = array_map( 'trim', explode( ',', $excluded_product_ids ) );
 
 		$total_free_shipping_eligible_cost = 0;
 
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			if ( ! in_array( $cart_item['product_id'], $excluded_product_ids, true ) ) {
+			if ( ! in_array( (string) $cart_item['product_id'], $excluded_product_ids, true ) ) {
 				$total_free_shipping_eligible_cost += $cart_item['line_total'];
 			}
 		}

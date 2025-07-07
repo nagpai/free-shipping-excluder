@@ -15,10 +15,10 @@ declare( strict_types=1 );
 
 namespace FreeShippingExcluder;
 
-use FreeShippingExcluder\Free_Shipping_Excluder;
-
 defined( 'ABSPATH' ) || exit;
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-free-shipping-excluder.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/admin/class-free-shipping-excluder-settings.php';
 
 new Free_Shipping_Excluder();
+new Admin\Free_Shipping_Excluder_Settings();
