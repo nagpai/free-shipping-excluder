@@ -1,11 +1,14 @@
 <?php
 /**
  * Plugin Name: Free Shipping Excluder for WooCommerce
+ * Plugin URI: https://github.com/nagpai/free-shipping-excluder
  * Description: Exclude specific products from free shipping.
  * Version: 1.0
  * Author: Nagesh Pai
+ * Author URI: https://nagpai.blog
  * Developer: Nagesh Pai
- * Required Plugins: 'woocommerce
+ * Developer URI: https://github.com/nagpai
+ * Required Plugins: 'woocommerce'
  * License: GPL-2.0+
  *
  * @package FreeShippingExcluder
