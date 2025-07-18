@@ -5,7 +5,8 @@
  * @package FreeShippingExcluder
  */
 
-declare( strict_types=1 );
+declare( strict_types = 1 );
+
 namespace FreeShippingExcluder\Admin;
 
 use FreeShippingExcluder\Free_Shipping_Excluder;

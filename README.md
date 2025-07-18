@@ -23,4 +23,4 @@ A WooCommerce extension that allows you to exclude specific products from being 
 Contributions are welcome! Please submit a pull request or open an issue for any improvements or bug fixes.
 
 ## License
-This plugin is licensed under the GPLv2 or later.
+This plugin is licensed under the GPLv2
