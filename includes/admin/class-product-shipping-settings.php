@@ -47,7 +47,7 @@ class Product_Shipping_Settings {
 	 */
 	public function save_exclude_from_free_shipping_field( int $post_id ): void {
 		// Verify nonce for security
-		if ( ! isset( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_meta_nonce'], 'woocommerce_save_data' ) ) {
+		if ( ! isset( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['woocommerce_meta_nonce'] ), 'woocommerce_save_data' ) ) {
 			return;
 		}
 
