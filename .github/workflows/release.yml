@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -48,26 +50,12 @@ jobs:
           zip -r ${{ steps.plugin_info.outputs.zip_name }} free-shipping-excluder/
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.plugin_info.outputs.version }}
-          draft: false
-          prerelease: false
-          body: |
-            Release ${{ steps.plugin_info.outputs.version }} of Free Shipping Excluder for WooCommerce
+        run: |
+          gh release create ${{ github.ref_name }} \
+            build/${{ steps.plugin_info.outputs.zip_name }} \
+            --title "Release ${{ steps.plugin_info.outputs.version }}" \
+            --notes "Release ${{ steps.plugin_info.outputs.version }} of Free Shipping Excluder for WooCommerce
 
-            Download the plugin zip file below and upload it to your WordPress site.
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/${{ steps.plugin_info.outputs.zip_name }}
-          asset_name: ${{ steps.plugin_info.outputs.zip_name }}
-          asset_content_type: application/zip
+          Download the plugin zip file below and upload it to your WordPress site."
