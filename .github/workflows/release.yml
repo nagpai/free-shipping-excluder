@@ -1,0 +1,72 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get plugin info
+        id: plugin_info
+        run: |
+          # Extract plugin version from main plugin file
+          VERSION=$(grep "Version:" free-shipping-excluder.php | sed 's/.*Version: *//' | sed 's/ .*//')
+          PLUGIN_NAME=$(grep "Plugin Name:" free-shipping-excluder.php | sed 's/.*Plugin Name: *//' | sed 's/ .*//' | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "plugin_name=free-shipping-excluder" >> $GITHUB_OUTPUT
+          echo "zip_name=free-shipping-excluder-$VERSION.zip" >> $GITHUB_OUTPUT
+
+      - name: Create plugin directory
+        run: |
+          mkdir -p build/free-shipping-excluder
+
+      - name: Copy plugin files (excluding hidden files and folders)
+        run: |
+          # Copy all files except hidden ones and build directory
+          find . -maxdepth 1 -type f ! -name ".*" ! -name "build" -exec cp {} build/free-shipping-excluder/ \;
+
+          # Copy includes directory if it exists
+          if [ -d "includes" ]; then
+            cp -r includes build/free-shipping-excluder/
+          fi
+
+          # Remove any hidden files that might have been copied
+          find build/free-shipping-excluder -name ".*" -type f -delete
+          find build/free-shipping-excluder -name ".*" -type d -exec rm -rf {} + 2>/dev/null || true
+
+      - name: Create zip file
+        run: |
+          cd build
+          zip -r ${{ steps.plugin_info.outputs.zip_name }} free-shipping-excluder/
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.plugin_info.outputs.version }}
+          draft: false
+          prerelease: false
+          body: |
+            Release ${{ steps.plugin_info.outputs.version }} of Free Shipping Excluder for WooCommerce
+
+            Download the plugin zip file below and upload it to your WordPress site.
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/${{ steps.plugin_info.outputs.zip_name }}
+          asset_name: ${{ steps.plugin_info.outputs.zip_name }}
+          asset_content_type: application/zip
