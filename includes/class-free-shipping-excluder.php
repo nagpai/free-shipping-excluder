@@ -38,7 +38,17 @@ class Free_Shipping_Excluder {
 		$total_free_shipping_eligible_cost = 0;
 
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			if ( ! in_array( (string) $cart_item['product_id'], $excluded_product_ids, true ) ) {
+			$product_id = (string) $cart_item['product_id'];
+			
+			// Check if product is excluded via product-level meta setting (highest priority)
+			$product_excluded_meta = get_post_meta( $cart_item['product_id'], '_exclude_from_free_shipping', true );
+			$is_excluded_by_meta = 'yes' === $product_excluded_meta;
+			
+			// Check if product is excluded via shipping method settings (lower priority)
+			$is_excluded_by_method_setting = in_array( $product_id, $excluded_product_ids, true );
+			
+			// If product is not excluded by either method, include it in the calculation
+			if ( ! $is_excluded_by_meta && ! $is_excluded_by_method_setting ) {
 				$total_free_shipping_eligible_cost += $cart_item['line_total'];
 			}
 		}
