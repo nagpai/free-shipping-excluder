@@ -46,6 +46,21 @@ class Product_Shipping_Settings {
 	 * @return void
 	 */
 	public function save_exclude_from_free_shipping_field( int $post_id ): void {
+		// Verify nonce for security
+		if ( ! isset( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_meta_nonce'], 'woocommerce_save_data' ) ) {
+			return;
+		}
+
+		// Check user permissions
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		// Don't save on autosave
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
 		$exclude_from_free_shipping = isset( $_POST['_exclude_from_free_shipping'] ) ? 'yes' : 'no';
 		update_post_meta( $post_id, '_exclude_from_free_shipping', $exclude_from_free_shipping );
 	}
