@@ -61,7 +61,7 @@ class Product_Shipping_Settings {
 			return;
 		}
 
-		$exclude_from_free_shipping = ( isset( $_POST['_exclude_from_free_shipping'] ) && 'on' === sanitize_text_field( wp_unslash( $_POST['_exclude_from_free_shipping'] ) ) ) ? 'yes' : 'no';
+		$exclude_from_free_shipping = isset( $_POST['_exclude_from_free_shipping'] ) ? 'yes' : 'no';
 		update_post_meta( $post_id, '_exclude_from_free_shipping', $exclude_from_free_shipping );
 	}
 }
