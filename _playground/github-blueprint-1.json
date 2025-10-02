@@ -1,0 +1,53 @@
+{
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "landingPage": "/wp-admin/",
+    "login": true,
+    "steps": [
+        {
+            "step": "installPlugin",
+            "pluginData": {
+                "resource": "wordpress.org/plugins",
+                "slug": "woocommerce"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "installTheme",
+            "themeData": {
+                "resource": "wordpress.org/themes",
+                "slug": "twentytwentyfive"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+          {
+            "step": "setSiteOptions",
+            "options": {
+                "woocommerce_store_address": "suite 212",
+                "woocommerce_store_address_2": "",
+                "woocommerce_store_city": "San Francisco",
+                "woocommerce_default_country": "US:CA",
+                "woocommerce_store_postcode": "94110",
+                "woocommerce_allowed_countries": "all",
+                "woocommerce_all_except_countries": [],
+                "woocommerce_specific_allowed_countries": [],
+                "woocommerce_ship_to_countries": "all",
+                "woocommerce_specific_ship_to_countries": [
+                "BD"
+                ],
+                "woocommerce_default_customer_address": "base",
+                "woocommerce_calc_taxes": "no",
+                "woocommerce_enable_coupons": "yes",
+                "woocommerce_calc_discounts_sequentially": "no",
+                "woocommerce_currency": "USD",
+                "woocommerce_currency_pos": "left",
+                "woocommerce_price_thousand_sep": ",",
+                "woocommerce_price_decimal_sep": ".",
+                "woocommerce_price_num_decimals": "2"
+            }
+        }
+    ]
+}

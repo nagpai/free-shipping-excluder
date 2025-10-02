@@ -1,0 +1,388 @@
+{
+  "landingPage": "/wp-admin/",
+  "login": true,
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "wordpress.org/themes",
+        "slug": "twentytwentyfive"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_store_address": "suite 212",
+        "woocommerce_store_address_2": "",
+        "woocommerce_store_city": "San Francisco",
+        "woocommerce_default_country": "US:CA",
+        "woocommerce_store_postcode": "94110",
+        "woocommerce_allowed_countries": "all",
+        "woocommerce_all_except_countries": [],
+        "woocommerce_specific_allowed_countries": [],
+        "woocommerce_ship_to_countries": "all",
+        "woocommerce_specific_ship_to_countries": [
+          "BD"
+        ],
+        "woocommerce_default_customer_address": "base",
+        "woocommerce_calc_taxes": "no",
+        "woocommerce_enable_coupons": "yes",
+        "woocommerce_calc_discounts_sequentially": "no",
+        "woocommerce_currency": "USD",
+        "woocommerce_currency_pos": "left",
+        "woocommerce_price_thousand_sep": ",",
+        "woocommerce_price_decimal_sep": ".",
+        "woocommerce_price_num_decimals": "2"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_shop_page_id": "6",
+        "woocommerce_cart_redirect_after_add": "no",
+        "woocommerce_enable_ajax_add_to_cart": "yes",
+        "woocommerce_placeholder_image": "5",
+        "woocommerce_weight_unit": "lbs",
+        "woocommerce_dimension_unit": "in",
+        "woocommerce_enable_reviews": "yes",
+        "woocommerce_review_rating_verification_label": "yes",
+        "woocommerce_review_rating_verification_required": "no",
+        "woocommerce_enable_review_rating": "yes",
+        "woocommerce_review_rating_required": "yes",
+        "woocommerce_manage_stock": "yes",
+        "woocommerce_hold_stock_minutes": "60",
+        "woocommerce_notify_low_stock": "yes",
+        "woocommerce_notify_no_stock": "yes",
+        "woocommerce_stock_email_recipient": "dev-email@wpengine.local",
+        "woocommerce_notify_low_stock_amount": "2",
+        "woocommerce_notify_no_stock_amount": "0",
+        "woocommerce_hide_out_of_stock_items": "no",
+        "woocommerce_stock_format": "",
+        "woocommerce_file_download_method": "force",
+        "woocommerce_downloads_redirect_fallback_allowed": "no",
+        "woocommerce_downloads_require_login": "no",
+        "woocommerce_downloads_grant_access_after_payment": "yes",
+        "woocommerce_downloads_deliver_inline": "",
+        "woocommerce_downloads_add_hash_to_filename": "yes",
+        "woocommerce_downloads_count_partial": "yes",
+        "woocommerce_attribute_lookup_enabled": "no",
+        "woocommerce_attribute_lookup_direct_updates": "no",
+        "woocommerce_attribute_lookup_optimized_updates": "no",
+        "woocommerce_product_match_featured_image_by_sku": "no"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_prices_include_tax": "no",
+        "woocommerce_tax_based_on": "shipping",
+        "woocommerce_shipping_tax_class": "inherit",
+        "woocommerce_tax_round_at_subtotal": "no",
+        "woocommerce_tax_classes": "",
+        "woocommerce_tax_display_shop": "excl",
+        "woocommerce_tax_display_cart": "excl",
+        "woocommerce_price_display_suffix": "",
+        "woocommerce_tax_total_display": "itemized"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_wc_tax_rate_classes` (`tax_rate_class_id`, `name`, `slug`) VALUES ('1', 'Reduced rate', 'reduced-rate');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_wc_tax_rate_classes` (`tax_rate_class_id`, `name`, `slug`) VALUES ('2', 'Zero rate', 'zero-rate');"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_enable_shipping_calc": "yes",
+        "woocommerce_shipping_cost_requires_address": "no",
+        "woocommerce_shipping_hide_rates_when_free": "no",
+        "woocommerce_ship_to_destination": "billing",
+        "woocommerce_shipping_debug_mode": "no"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zones` (`zone_id`, `zone_name`, `zone_order`) VALUES ('1', 'California', '0');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zones` (`zone_id`, `zone_name`, `zone_order`) VALUES ('4', 'United States', '0');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_locations` (`location_id`, `zone_id`, `location_code`, `location_type`) VALUES ('1', '1', 'US:CA', 'state');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_locations` (`location_id`, `zone_id`, `location_code`, `location_type`) VALUES ('4', '4', 'US', 'country');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_methods` (`zone_id`, `instance_id`, `method_id`, `method_order`, `is_enabled`) VALUES ('1', '1', 'free_shipping', '1', '1');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_methods` (`zone_id`, `instance_id`, `method_id`, `method_order`, `is_enabled`) VALUES ('1', '2', 'flat_rate', '2', '1');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_methods` (`zone_id`, `instance_id`, `method_id`, `method_order`, `is_enabled`) VALUES ('4', '6', 'free_shipping', '1', '1');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES ('615', 'woocommerce_flat_rate_2_settings', 'a:7:{s:5:\\\"title\\\";s:9:\\\"Flat rate\\\";s:10:\\\"tax_status\\\";s:7:\\\"taxable\\\";s:4:\\\"cost\\\";s:2:\\\"20\\\";s:13:\\\"class_cost_44\\\";s:2:\\\"10\\\";s:13:\\\"class_cost_43\\\";s:3:\\\"100\\\";s:13:\\\"no_class_cost\\\";s:0:\\\"\\\";s:4:\\\"type\\\";s:5:\\\"class\\\";}', 'on');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES ('550', 'woocommerce_free_shipping_1_settings', 'a:5:{s:5:\\\"title\\\";s:13:\\\"Free shipping\\\";s:8:\\\"requires\\\";s:10:\\\"min_amount\\\";s:10:\\\"min_amount\\\";s:3:\\\"100\\\";s:16:\\\"ignore_discounts\\\";s:2:\\\"no\\\";s:17:\\\"excluded_products\\\";s:6:\\\"18, 19\\\";}', 'on');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES ('2726', 'woocommerce_free_shipping_6_settings', 'a:5:{s:5:\\\"title\\\";s:13:\\\"Free shipping\\\";s:8:\\\"requires\\\";s:10:\\\"min_amount\\\";s:10:\\\"min_amount\\\";s:3:\\\"100\\\";s:16:\\\"ignore_discounts\\\";s:2:\\\"no\\\";s:17:\\\"excluded_products\\\";s:0:\\\"\\\";}', 'on');"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_pickup_location_settings": {
+          "enabled": "yes",
+          "title": "Pickup",
+          "tax_status": "taxable",
+          "cost": ""
+        },
+        "pickup_location_pickup_locations": [
+          {
+            "name": "Store",
+            "address": {
+              "address_1": "My place",
+              "city": "San Francisco",
+              "state": "CA",
+              "postcode": "94110",
+              "country": "US"
+            },
+            "details": "Anytime!",
+            "enabled": true
+          }
+        ]
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_bacs_settings": {
+          "enabled": "no",
+          "title": "Direct bank transfer",
+          "description": "Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.",
+          "instructions": "",
+          "account_details": "",
+          "account_name": "",
+          "account_number": "",
+          "sort_code": "",
+          "bank_name": "",
+          "iban": "",
+          "bic": ""
+        },
+        "woocommerce_cheque_settings": {
+          "enabled": "no",
+          "title": "Check payments",
+          "description": "Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.",
+          "instructions": ""
+        },
+        "woocommerce_cod_settings": {
+          "enabled": "no",
+          "title": "Cash on delivery",
+          "description": "Pay with cash upon delivery.",
+          "instructions": "Pay with cash upon delivery.",
+          "enable_for_methods": [],
+          "enable_for_virtual": "yes"
+        }
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_enable_guest_checkout": "yes",
+        "woocommerce_enable_checkout_login_reminder": "no",
+        "woocommerce_enable_delayed_account_creation": "no",
+        "woocommerce_enable_signup_and_login_from_checkout": "no",
+        "woocommerce_enable_myaccount_registration": "no",
+        "woocommerce_registration_generate_password": "yes",
+        "woocommerce_erasure_request_removes_order_data": "no",
+        "woocommerce_erasure_request_removes_download_data": "no",
+        "woocommerce_allow_bulk_remove_personal_data": "no",
+        "woocommerce_registration_privacy_policy_text": "Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our [privacy_policy].",
+        "woocommerce_checkout_privacy_policy_text": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our [privacy_policy].",
+        "woocommerce_delete_inactive_accounts": {
+          "number": "",
+          "unit": "months"
+        },
+        "woocommerce_trash_pending_orders": "",
+        "woocommerce_trash_failed_orders": "",
+        "woocommerce_trash_cancelled_orders": "",
+        "woocommerce_anonymize_refunded_orders": {
+          "number": "",
+          "unit": "months"
+        },
+        "woocommerce_anonymize_completed_orders": {
+          "number": "",
+          "unit": "months"
+        }
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_email_from_name": "wootestlocal",
+        "woocommerce_email_from_address": "dev-email@wpengine.local",
+        "previewing_new_templates": null,
+        "woocommerce_email_header_image": "",
+        "woocommerce_email_header_image_width": "120",
+        "woocommerce_email_header_alignment": "left",
+        "woocommerce_email_font_family": "Helvetica",
+        "woocommerce_email_footer_text": "{site_title}<br />{store_address}",
+        "email_color_palette": null,
+        "woocommerce_email_base_color": "#111111",
+        "woocommerce_email_background_color": "#FFFFFF",
+        "woocommerce_email_body_background_color": "#FFFFFF",
+        "woocommerce_email_text_color": "#111111",
+        "woocommerce_email_footer_text_color": "#787c82",
+        "email_improvements_button": null,
+        "woocommerce_new_order_settings": "",
+        "woocommerce_cancelled_order_settings": "",
+        "woocommerce_customer_cancelled_order_settings": "",
+        "woocommerce_failed_order_settings": "",
+        "woocommerce_customer_failed_order_settings": "",
+        "woocommerce_customer_on_hold_order_settings": "",
+        "woocommerce_customer_processing_order_settings": "",
+        "woocommerce_customer_completed_order_settings": "",
+        "woocommerce_customer_refunded_order_settings": "",
+        "woocommerce_customer_invoice_settings": "",
+        "woocommerce_customer_note_settings": "",
+        "woocommerce_customer_reset_password_settings": "",
+        "woocommerce_customer_new_account_settings": "",
+        "woocommerce_customer_pos_completed_order_settings": "",
+        "woocommerce_customer_pos_refunded_order_settings": ""
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_maxmind_geolocation_settings": {
+          "database_prefix": "hsc4Hxcbod7Km8mrTGpFp0s1vdQCaJIf"
+        }
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_coming_soon": "no",
+        "woocommerce_store_pages_only": "no"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_cart_page_id": "7",
+        "woocommerce_checkout_page_id": "8",
+        "woocommerce_myaccount_page_id": "9",
+        "woocommerce_terms_page_id": "",
+        "woocommerce_force_ssl_checkout": "no",
+        "woocommerce_unforce_ssl_checkout": "no",
+        "woocommerce_checkout_pay_endpoint": "order-pay",
+        "woocommerce_checkout_order_received_endpoint": "order-received",
+        "woocommerce_myaccount_add_payment_method_endpoint": "add-payment-method",
+        "woocommerce_myaccount_delete_payment_method_endpoint": "delete-payment-method",
+        "woocommerce_myaccount_set_default_payment_method_endpoint": "set-default-payment-method",
+        "woocommerce_myaccount_orders_endpoint": "orders",
+        "woocommerce_myaccount_view_order_endpoint": "view-order",
+        "woocommerce_myaccount_downloads_endpoint": "downloads",
+        "woocommerce_myaccount_edit_account_endpoint": "edit-account",
+        "woocommerce_myaccount_edit_address_endpoint": "edit-address",
+        "woocommerce_myaccount_payment_methods_endpoint": "payment-methods",
+        "woocommerce_myaccount_lost_password_endpoint": "lost-password",
+        "woocommerce_logout_endpoint": "customer-logout",
+        "woocommerce_api_enabled": "no",
+        "woocommerce_allow_tracking": "yes",
+        "woocommerce_show_marketplace_suggestions": "yes",
+        "woocommerce_custom_orders_table_enabled": "yes",
+        "woocommerce_custom_orders_table_data_sync_enabled": null,
+        "woocommerce_analytics_enabled": "yes",
+        "woocommerce_feature_rate_limit_checkout_enabled": "no",
+        "woocommerce_feature_order_attribution_enabled": "yes",
+        "woocommerce_feature_site_visibility_badge_enabled": "yes",
+        "woocommerce_feature_remote_logging_enabled": "yes",
+        "woocommerce_feature_email_improvements_enabled": "yes",
+        "woocommerce_feature_blueprint_enabled": "yes",
+        "woocommerce_hpos_fts_index_enabled": "no",
+        "woocommerce_hpos_datastore_caching_enabled": "no",
+        "woocommerce_feature_block_email_editor_enabled": "no",
+        "woocommerce_feature_point_of_sale_enabled": "yes",
+        "woocommerce_feature_experimental-iapi-mini-cart_enabled": "no",
+        "woocommerce_feature_cost_of_goods_sold_enabled": "no"
+      }
+    }
+  ]
+}
