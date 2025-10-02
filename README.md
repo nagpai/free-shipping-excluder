@@ -12,11 +12,11 @@ A WooCommerce extension that allows you to exclude specific products from being 
 
 ## Usage
 1. After activation, go to 'WooCommerce' > 'Settings'.
-2. Click on the 'Shipping' tab.
-3. Click on any zone that has the 'Free Shipping' method enabled.
-4. Click on the 'Free Shipping' method to edit its settings.
-5. You will see a new setting to exclude specific products from free shipping.
-6. Enter the product IDs you want to exclude, separated by commas.
+2. Click on any product that you wish to exclude from free shipping calculation.
+3. Scroll down to the 'Product Data' section.
+4. Click on the 'Shipping' tab.
+5. You will see a new checkbo to exclude this product from free shipping.
+6. Check the box to exclude this product from free shipping.
 7. Save the changes.
 
 ## Contributing
@@ -24,3 +24,5 @@ Contributions are welcome! Please submit a pull request or open an issue for any
 
 ## License
 This plugin is licensed under the GPLv2
+
+[ Playground link ](https://playground.wordpress.net/?blue
