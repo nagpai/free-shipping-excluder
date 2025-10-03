@@ -6,8 +6,18 @@
   "features": {
     "intl": true
   },
-  "landingPage": "/wp-admin/admin.php?page=wc-settings&tab=shipping",
+  "landingPage": "/",
   "steps": [
+    { 
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://github.com/nagpai/free-shipping-excluder/archive/refs/heads/main.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
     {
       "step": "importWxr",
       "file": {
@@ -24,8 +34,6 @@
         "woocommerce_default_country": "US:CA",
         "woocommerce_store_postcode": "94110",
         "woocommerce_allowed_countries": "all",
-        "woocommerce_all_except_countries": [],
-        "woocommerce_specific_allowed_countries": [],
         "woocommerce_ship_to_countries": "all",
         "woocommerce_default_customer_address": "base",
         "woocommerce_calc_taxes": "no",
@@ -35,29 +43,90 @@
         "woocommerce_currency_pos": "left",
         "woocommerce_price_thousand_sep": ",",
         "woocommerce_price_decimal_sep": ".",
-        "woocommerce_price_num_decimals": "2"
+        "woocommerce_price_num_decimals": "2",
+        "woocommerce_enable_shipping_calc": "yes",
+        "woocommerce_shipping_cost_requires_address": "no",
+        "woocommerce_shipping_hide_rates_when_free": "no",
+        "woocommerce_ship_to_destination": "billing",
+        "woocommerce_shipping_debug_mode": "no"
+      }
+    },  
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zones` (`zone_id`, `zone_name`, `zone_order`) VALUES ('1', 'California', '0');"
       }
     },
     {
-      "step": "mkdir",
-      "path": "/wordpress/wp-content/plugins/woo-shipping-method"
-    },
-    {
-      "step": "writeFile",
-      "path": "/wordpress/wp-content/plugins/woo-shipping-method/woo-shipping-method.php",
-      "data": {
-        "resource": "url",
-        "url": "https://raw.githubusercontent.com/wordpress/blueprints/trunk/blueprints/woo-shipping/woo-shipping-method/woo-shipping-method.php"
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_locations` (`location_id`, `zone_id`, `location_code`, `location_type`) VALUES ('1', '1', 'US:CA', 'state');"
       }
     },
     {
-      "step": "activatePlugin",
-      "pluginName": "woo-shipping-method",
-      "pluginPath": "woo-shipping-method/woo-shipping-method.php"
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_methods` (`zone_id`, `instance_id`, `method_id`, `method_order`, `is_enabled`) VALUES ('1', '1', 'free_shipping', '1', '1');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_woocommerce_shipping_zone_methods` (`zone_id`, `instance_id`, `method_id`, `method_order`, `is_enabled`) VALUES ('1', '2', 'flat_rate', '2', '1');"
+      }
+    },
+    {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES ('615', 'woocommerce_flat_rate_2_settings', 'a:7:{s:5:\\\"title\\\";s:9:\\\"Flat rate\\\";s:10:\\\"tax_status\\\";s:7:\\\"taxable\\\";s:4:\\\"cost\\\";s:2:\\\"20\\\";s:13:\\\"class_cost_44\\\";s:2:\\\"10\\\";s:13:\\\"class_cost_43\\\";s:3:\\\"100\\\";s:13:\\\"no_class_cost\\\";s:0:\\\"\\\";s:4:\\\"type\\\";s:5:\\\"class\\\";}', 'on');"
+      }
+    },
+        {
+      "step": "runSql",
+      "sql": {
+        "resource": "literal",
+        "name": "schema.sql",
+        "contents": "replace into `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES ('2726', 'woocommerce_free_shipping_1_settings', 'a:5:{s:5:\\\"title\\\";s:13:\\\"Free shipping\\\";s:8:\\\"requires\\\";s:10:\\\"min_amount\\\";s:10:\\\"min_amount\\\";s:3:\\\"100\\\";s:16:\\\"ignore_discounts\\\";s:2:\\\"no\\\";s:17:\\\"excluded_products\\\";s:0:\\\"\\\";}', 'on');"
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "woocommerce_pickup_location_settings": {
+          "enabled": "yes",
+          "title": "Pickup",
+          "tax_status": "taxable",
+          "cost": ""
+        },
+        "pickup_location_pickup_locations": [
+          {
+            "name": "Store",
+            "address": {
+              "address_1": "My place",
+              "city": "San Francisco",
+              "state": "CA",
+              "postcode": "94110",
+              "country": "US"
+            },
+            "details": "Anytime!",
+            "enabled": true
+          }
+        ]
+      }
     },
     {
       "step": "runPHP",
-      "code": "<?php include '/wordpress/wp-load.php'; delete_transient( '_wc_activation_redirect' ); wp_insert_post(array( 'import_id' => 5, 'post_title' => 'Sample Product', 'post_content' => '<!-- wp:paragraph --><p>Sample product description</p><!-- /wp:paragraph -->','post_status' => 'publish','post_type' => 'product','post_author' => 1, 'meta_input' => array('_sku' => 'WEBTOFFEE-FEED-ITEM', '_regular_price' => 25.00, '_sale_price' => 22.00, '_price' => 22.00, '_wt_feed_brand' => 'WebToffee', '_wt_feed_gtin' => 'WEBTOFFEE123', '_wt_feed_mpn' => 'WebToffee123', '_wt_feed_color' => 'Red', '_wt_feed_gender' => 'Male' ) ) );"
+      "code": "<?php include '/wordpress/wp-load.php'; delete_transient( '_wc_activation_redirect' );"
     },
     {
       "step": "login",
