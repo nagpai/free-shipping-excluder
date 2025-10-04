@@ -43,8 +43,11 @@ class Free_Shipping_Excluder {
 			$product_excluded_meta = get_post_meta( $cart_item['product_id'], '_exclude_from_free_shipping', true );
 			$is_excluded_by_meta   = 'yes' === $product_excluded_meta;
 
+			// Check if product belongs to an excluded category.
+			$is_excluded_by_category = $this->is_product_in_excluded_category( $cart_item['product_id'] );
+
 			// If product is not excluded by either method, include it in the calculation.
-			if ( ! $is_excluded_by_meta ) {
+			if ( ! $is_excluded_by_meta && ! $is_excluded_by_category ) {
 				$total_free_shipping_eligible_cost += $cart_item['line_total'];
 			}
 		}
@@ -52,5 +55,31 @@ class Free_Shipping_Excluder {
 		$free_shipping_threshold = (float) $free_shipping_method->get_option( 'min_amount', 0 );
 
 		return $total_free_shipping_eligible_cost >= $free_shipping_threshold;
+	}
+
+	/**
+	 * Check if a product belongs to an excluded category.
+	 *
+	 * @param int $product_id Product ID.
+	 * @return bool True if product is in an excluded category, false otherwise.
+	 */
+	private function is_product_in_excluded_category( int $product_id ): bool {
+		// Get all categories for this product.
+		$product_categories = wp_get_post_terms( $product_id, 'product_cat', array( 'fields' => 'ids' ) );
+
+		// If there's an error or no categories, return false.
+		if ( is_wp_error( $product_categories ) || empty( $product_categories ) ) {
+			return false;
+		}
+
+		// Check if any of the product's categories are excluded.
+		foreach ( $product_categories as $category_id ) {
+			$exclude_from_free_shipping = get_term_meta( $category_id, 'exclude_from_free_shipping', true );
+			if ( 'yes' === $exclude_from_free_shipping ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

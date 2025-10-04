@@ -23,6 +23,8 @@ defined( 'ABSPATH' ) || exit;
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-free-shipping-excluder.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin/class-product-shipping-settings.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/admin/class-category-exclusion-settings.php';
 
 new Free_Shipping_Excluder();
 new Admin\Product_Shipping_Settings();
+new Admin\Category_Exclusion_Settings();
