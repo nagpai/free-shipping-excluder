@@ -1,5 +1,5 @@
 # Free Shipping Excluder for WooCommerce
-A WooCommerce extension that allows you to exclude specific products from being counted towards the free shipping threshold. It ensures that certain products do not contribute to the total cost required for free shipping, allowing you to control shipping costs more effectively.
+A WooCommerce extension that allows you to exclude specific products and categories from being counted towards the free shipping threshold. It ensures that certain products do not contribute to the total cost required for free shipping, allowing you to control shipping costs more effectively.
 
 ## Installation
 1. Download the zip file of the plugin from this repository.
@@ -11,13 +11,23 @@ A WooCommerce extension that allows you to exclude specific products from being 
 4. Activate the plugin through the 'Plugins' menu in WordPress.
 
 ## Usage
-1. After activation, go to 'WooCommerce' > 'Settings'.
+
+### Exclude Individual Products
+1. After activation, go to 'Products' in WordPress admin.
 2. Click on any product that you wish to exclude from free shipping calculation.
 3. Scroll down to the 'Product Data' section.
 4. Click on the 'Shipping' tab.
-5. You will see a new checkbo to exclude this product from free shipping.
+5. You will see a checkbox to exclude this product from free shipping.
 6. Check the box to exclude this product from free shipping.
 7. Save the changes.
+
+### Exclude Product Categories
+1. Go to 'Products' > 'Categories' in WordPress admin.
+2. Click on any category you wish to exclude from free shipping calculation (or create a new one).
+3. You will see a checkbox labeled 'Exclude from free shipping'.
+4. Check the box to exclude all products in this category from free shipping threshold calculations.
+5. Save the changes.
+6. All products belonging to this category will now be excluded from the free shipping calculation.
 
 ## Contributing
 Contributions are welcome! Please submit a pull request or open an issue for any improvements or bug fixes.
