@@ -4,7 +4,8 @@
     "woocommerce"
   ],
   "features": {
-    "intl": true
+    "intl": true,
+    "networking": true
   },
   "landingPage": "/",
   "steps": [
