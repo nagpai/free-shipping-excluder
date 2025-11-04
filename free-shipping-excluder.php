@@ -9,7 +9,7 @@
  * Author URI: https://nagpai.blog
  * Developer: Nagesh Pai
  * Developer URI: https://github.com/nagpai
- * Required Plugins: 'woocommerce'
+ * Required Plugins: woocommerce
  * License: GPL-2.0+
  *
  * @package FreeShippingExcluder
