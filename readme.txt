@@ -39,6 +39,22 @@ Excluded products can still be purchased and shipped - they just don't count tow
 * Exclude low-margin products
 * Exclude entire categories like "Accessories" or "Downloads"
 
+== Contribution ==
+
+You are welcome to contribute to this free and open source extension:
+
+- **Source Code:**
+  [https://github.com/nagpai/free-shipping-excluder](https://github.com/nagpai/free-shipping-excluder)
+
+- **Report Issues / Wishlists:**
+  [https://github.com/nagpai/free-shipping-excluder/issues](https://github.com/nagpai/free-shipping-excluder/issues)
+
+== Support ==
+
+- Use the [Dedicated WP.org Support Forum](https://wordpress.org/support/plugin/free-shipping-excluder/)
+- [Contact the plugin author](https://nagpai.blog/contact-me/)
+- Like this plugin? Please share your love with a [review and rating](https://wordpress.org/support/plugin/free-shipping-excluder/reviews/#new-post)
+
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/free-shipping-excluder` directory, or install the plugin through the WordPress plugins screen directly
