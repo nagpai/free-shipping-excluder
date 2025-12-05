@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/nagpai/free-shipping-excluder
  * Description: Exclude specific products from free shipping.
  * Version: 1.1
- * Tested up to: 6.8.2
+ * Tested up to: 6.9
  * Author: Nagesh Pai
  * Author URI: https://nagpai.blog
  * Developer: Nagesh Pai
