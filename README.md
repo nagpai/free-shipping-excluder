@@ -50,8 +50,7 @@ Steps to test:
 7. Apply the category to any product, and repeat the above tests to see if its cost is excluded from free shipping threshold calculation.
 
 ## Contributing
-Contributions are welcome! Please submit a pull request or open an issue for any improvements or bug fixes.
-https://github.com/nagpai/free-shipping-excluder
+Contributions are welcome! Please feel free to fork and submit a pull request or open an [issue](https://github.com/nagpai/free-shipping-excluder/issues) for any improvements or bug fixes.
 
 ## License
 This plugin is licensed under the GPLv2
