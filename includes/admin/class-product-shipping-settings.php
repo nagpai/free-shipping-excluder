@@ -21,7 +21,28 @@ class Product_Shipping_Settings {
 	public function __construct() {
 		add_action( 'woocommerce_product_options_shipping', array( $this, 'add_exclude_from_free_shipping_field' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_exclude_from_free_shipping_field' ) );
+		
+		// Make Shipping tab visible for Virtual products.
+		add_filter( 'woocommerce_product_data_tabs', array( $this, 'enable_shipping_tab_for_virtual' ), 10, 1 );
 	}
+
+	/**
+	 * Enable the Shipping tab for Virtual products.
+	 *
+	 * @param array $tabs Product data tabs.
+	 * @return array Modified tabs.
+	 */
+	public function enable_shipping_tab_for_virtual( array $tabs ): array {
+		if ( isset( $tabs['shipping'] ) ) {
+			// Remove 'virtual' from the class array to make it visible for virtual products.
+			$tabs['shipping']['class'] = array_diff(
+				isset( $tabs['shipping']['class'] ) ? $tabs['shipping']['class'] : array(),
+				array( 'hide_if_virtual' )
+			);
+		}
+		return $tabs;
+	}
+
 
 	/**
 	 * Add checkbox field to exclude product from free shipping calculation.
