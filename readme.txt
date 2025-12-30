@@ -3,7 +3,7 @@ Contributors: nagpai
 Tags: woocommerce, shipping, free shipping, product exclusion, category exclusion
 Requires at least: 6.0
 Tested up to: 6.9
-Stable tag: 1.1
+Stable tag: 1.2
 Requires PHP: 8.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,10 @@ You are welcome to contribute to this free and open source extension:
 
 - **Report Issues / Wishlists:**
   [https://github.com/nagpai/free-shipping-excluder/issues](https://github.com/nagpai/free-shipping-excluder/issues)
+
+== Screenshots
+1. Product level exclusion setting
+2. Category level exclusion setting
 
 == Support ==
 
