@@ -95,6 +95,9 @@ No, the exclusion happens behind the scenes in the cart calculation. Customers w
 
 == Changelog ==
 
+= 1.2 =
+* Added virtual product exclusion feature
+
 = 1.1 =
 * Added category-level exclusion feature
 * Enhanced product-level exclusion with meta field support
