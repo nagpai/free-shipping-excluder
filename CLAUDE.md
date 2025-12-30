@@ -12,25 +12,50 @@ The plugin follows WordPress plugin conventions with a simple, focused architect
 
 - **Main Plugin File**: `free-shipping-excluder.php` - Contains plugin headers and initializes the main classes
 - **Core Logic**: `includes/class-free-shipping-excluder.php` - Implements the main shipping filter logic
-- **Admin Settings**: `includes/admin/class-free-shipping-excluder-settings.php` - Adds settings UI to WooCommerce shipping methods
+- **Admin Settings**: 
+  - `includes/admin/class-product-shipping-settings.php` - Adds product-level shipping exclusion settings
+  - `includes/admin/class-category-exclusion-settings.php` - Adds category-level exclusion settings
+  - `includes/admin/class-admin-assets.php` - Manages admin UI enhancements for virtual products
 
 ### Key Components
 
-1. **Free_Shipping_Excluder Class** (`includes/class-free-shipping-excluder.php:17`)
+1. **Free_Shipping_Excluder Class** (`includes/class-free-shipping-excluder.php`)
    - Hooks into `woocommerce_shipping_free_shipping_is_available` filter
    - Calculates shipping eligibility excluding specified products
    - Compares cart total against free shipping threshold
 
-2. **Free_Shipping_Excluder_Settings Class** (`includes/admin/class-free-shipping-excluder-settings.php:19`)
-   - Extends WooCommerce free shipping method settings
-   - Adds "excluded_products" field for comma-separated product IDs
+2. **Product_Shipping_Settings Class** (`includes/admin/class-product-shipping-settings.php`)
+   - Adds "Exclude from free shipping" checkbox to product edit pages
+   - Makes Shipping tab visible for Virtual products (removes `hide_if_virtual` class)
+   - Saves product-level exclusion settings to post meta
+
+3. **Category_Exclusion_Settings Class** (`includes/admin/class-category-exclusion-settings.php`)
+   - Adds category-level exclusion settings
+   - Allows excluding entire product categories from free shipping calculations
+
+4. **Admin_Assets Class** (`includes/admin/class-admin-assets.php`)
+   - Enqueues JavaScript for product edit pages
+   - Dynamically removes default shipping fields (Weight, Dimensions, Shipping Class) for Virtual products
+   - Preserves only the "Exclude from free shipping" checkbox for Virtual products
+   - Implements smooth toggle behavior without page reload when Virtual checkbox changes
 
 ### WordPress/WooCommerce Integration
 
 The plugin integrates with WooCommerce through:
-- Filter hooks for shipping calculations
-- Settings API for admin configuration
+- Filter hooks for shipping calculations and product data tabs
+- Product meta for per-product exclusion settings
+- Category meta for category-wide exclusions
+- JavaScript for enhanced admin UI behavior
 - Cart and product data access through WC() global
+
+### Virtual Product Handling
+
+A key feature is the enhanced Shipping tab for Virtual products:
+- By default, WooCommerce hides the Shipping tab for Virtual products
+- This plugin removes the `hide_if_virtual` class to make it visible
+- JavaScript removes irrelevant shipping fields (Weight, Dimensions, Shipping Class)
+- Only the "Exclude from free shipping" checkbox remains visible for Virtual products
+- Elements are cloned and stored, allowing instant restoration when Virtual is unchecked
 
 ## Development
 
@@ -42,7 +67,9 @@ free-shipping-excluder.php          # Plugin entry point
 includes/
 ├── class-free-shipping-excluder.php           # Core shipping logic
 └── admin/
-    └── class-free-shipping-excluder-settings.php  # Admin settings
+    ├── class-product-shipping-settings.php    # Product-level exclusion settings
+    ├── class-category-exclusion-settings.php  # Category-level exclusion settings
+    └── class-admin-assets.php                 # Admin UI enhancements
 ```
 
 ### WordPress Plugin Standards

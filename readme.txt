@@ -3,7 +3,7 @@ Contributors: nagpai
 Tags: woocommerce, shipping, free shipping, product exclusion, category exclusion
 Requires at least: 6.0
 Tested up to: 6.9
-Stable tag: 1.1
+Stable tag: 1.2
 Requires PHP: 8.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,10 @@ You are welcome to contribute to this free and open source extension:
 - **Report Issues / Wishlists:**
   [https://github.com/nagpai/free-shipping-excluder/issues](https://github.com/nagpai/free-shipping-excluder/issues)
 
+== Screenshots
+1. Product level exclusion setting
+2. Category level exclusion setting
+
 == Support ==
 
 - Use the [Dedicated WP.org Support Forum](https://wordpress.org/support/plugin/free-shipping-excluder/)
@@ -90,6 +94,9 @@ The plugin works with WooCommerce's native free shipping method. Compatibility w
 No, the exclusion happens behind the scenes in the cart calculation. Customers will simply see whether they qualify for free shipping based on their eligible items.
 
 == Changelog ==
+
+= 1.2 =
+* Added virtual product exclusion feature
 
 = 1.1 =
 * Added category-level exclusion feature
