@@ -19,18 +19,18 @@ class Free_Shipping_Excluder {
 	 * Constructor to initialize the plugin.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'exclude_products_from_free_shipping' ), 10, 3 );
+		add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'is_free_shipping_available' ), 10, 3 );
 	}
 
 	/**
-	 * Exclude specific products from free shipping.
+	 * Check if free shipping is available based on eligible products in the cart.
 	 *
-	 * @param bool                      $is_available    Whether free shipping is available.
-	 * @param array                     $package         Package information.
+	 * @param bool                      $is_available         Whether free shipping is available.
+	 * @param array                     $package              Package information.
 	 * @param WC_Shipping_Free_Shipping $free_shipping_method The shipping method instance.
 	 * @return bool
 	 */
-	public function exclude_products_from_free_shipping( $is_available, $package, $free_shipping_method ): bool {
+	public function is_free_shipping_available( $is_available, $package, $free_shipping_method ): bool {
 		// Get array of excluded product IDs from comma-separated string in settings.
 		$excluded_product_ids = $free_shipping_method->get_option( 'excluded_products', '' );
 
