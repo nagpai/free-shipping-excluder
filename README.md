@@ -2,7 +2,7 @@
 
 
 # Free Shipping Excluder for WooCommerce
-A WooCommerce extension that allows you to exclude specific products and categories from being counted towards the free shipping threshold. It ensures that certain products do not contribute to the total cost required for free shipping, allowing you to control shipping costs more effectively.
+A WooCommerce extension that allows you to exclude specific products and categories from being counted towards the free shipping threshold, or completely disable free shipping for the entire order when specific products are in the cart.
 
 ## Installation
 
@@ -35,6 +35,16 @@ A WooCommerce extension that allows you to exclude specific products and categor
 5. Save the changes.
 6. All products belonging to this category will now be excluded from the free shipping calculation.
 
+### Disable Free Shipping for Specific Products
+
+1. Go to 'Products' in WordPress admin.
+2. Click on any product that you wish to completely disable free shipping for.
+3. Scroll down to the 'Product Data' section.
+4. Click on the 'Shipping' tab.
+5. You will see a checkbox labeled **Disable free shipping if in cart**.
+6. Check the box to completely disable free shipping for the entire order if this product is in the cart, regardless of any thresholds.
+7. Save the changes.
+
 ### Test live and instantly with WordPress Playground
 
 [Test on WP Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/nagpai/free-shipping-excluder/refs/heads/main/_playground/github-blueprint.json)
@@ -48,6 +58,7 @@ Steps to test:
 5. Add a few other products to the cart, the flat rate shipping fee will continue to show until the value of other products except Non-free Shipping goes above 100
 6. Create a category - say `No Free Shipping`. Make sure you check the `Exclude from free shipping` checkbox.
 7. Apply the category to any product, and repeat the above tests to see if its cost is excluded from free shipping threshold calculation.
+8. Edit a product and check the **Disable free shipping if in cart** checkbox. Save the product, add it to the cart along with a cart total that exceeds USD 100 of other eligible products, and verify that free shipping is completely disabled for the entire order due to this product's presence.
 
 ## Contributing
 Contributions are welcome! Please feel free to fork and submit a pull request or open an [issue](https://github.com/nagpai/free-shipping-excluder/issues) for any improvements or bug fixes.

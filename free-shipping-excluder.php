@@ -3,8 +3,8 @@
  * Plugin Name: Free Shipping Excluder for WooCommerce
  * Plugin URI: https://github.com/nagpai/free-shipping-excluder
  * Description: Exclude specific products from free shipping.
- * Version: 1.2
- * Tested up to: 6.9
+ * Version: 1.3
+ * Tested up to: 7.0
  * Author: Nagesh Pai
  * Author URI: https://nagpai.blog
  * Developer: Nagesh Pai

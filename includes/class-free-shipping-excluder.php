@@ -34,6 +34,12 @@ class Free_Shipping_Excluder {
 		$total_free_shipping_eligible_cost = 0;
 
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
+
+			// Check if product disables free shipping
+			if ( $this->is_product_disabling_free_shipping( $cart_item['product_id'] ) ) {
+				return false;
+			}
+
 			// Check if product is excluded via product-level meta setting.
 			$is_excluded_by_meta = $this->is_product_excluded_by_meta( $cart_item['product_id'] );
 
@@ -86,5 +92,16 @@ class Free_Shipping_Excluder {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Check if the product disables free shipping for entire cart.
+	 *
+	 * @param int $product_id Product ID.
+	 * @return bool True if product disables free shipping for entire cart, false otherwise.
+	 */
+	private function is_product_disabling_free_shipping( int $product_id ): bool {
+		$disable_free_shipping = get_post_meta( $product_id, '_disable_free_shipping', true );
+		return 'yes' === $disable_free_shipping;
 	}
 }
