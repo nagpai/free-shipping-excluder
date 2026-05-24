@@ -53,7 +53,7 @@ class Product_Shipping_Settings {
 		woocommerce_wp_checkbox(
 			array(
 				'id'          => '_exclude_from_free_shipping',
-				'label'       => __( 'Exclude from free shipping', 'free-shipping-excluder' ),
+				'label'       => __( 'Exclude cost from free shipping', 'free-shipping-excluder' ),
 				'description' => __( 'Exclude this product from free shipping threshold calculations. This product\'s cost will not count towards the minimum amount required for free shipping.', 'free-shipping-excluder' ),
 				'desc_tip'    => true,
 			)
