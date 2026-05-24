@@ -20,6 +20,32 @@ class Free_Shipping_Excluder {
 	 */
 	public function __construct() {
 		add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'exclude_products_from_free_shipping' ), 10, 3 );
+		add_filter( 'woocommerce_cart_item_name', array( $this, 'show_free_shipping_disabled_notice' ), 10, 3 );
+	}
+
+	/**
+	 * Show a notice below the product in the cart/checkout if it disables free shipping.
+	 *
+	 * @param string $product_name Product name.
+	 * @param array  $cart_item    Cart item data.
+	 * @param string $cart_item_key Cart item key.
+	 * @return string Modified product name.
+	 */
+	public function show_free_shipping_disabled_notice( string $product_name, array $cart_item, string $cart_item_key ): string {
+		if ( isset( $cart_item['product_id'] ) ) {
+			$product_disables_free_shipping = get_post_meta( $cart_item['product_id'], '_disable_free_shipping', true );
+
+			if ( 'yes' === $product_disables_free_shipping ) {
+				// Append the notice to the product name.
+				$notice = sprintf(
+					'<div class="free-shipping-disabled-notice" style="color: #ba2626; font-size: 0.85em; margin-top: 4px; font-weight: 500;">%s</div>',
+					esc_html__( 'This product disables free shipping for the entire order.', 'free-shipping-excluder' )
+				);
+				$product_name .= $notice;
+			}
+		}
+
+		return $product_name;
 	}
 
 	/**
