@@ -31,17 +31,11 @@ class Free_Shipping_Excluder {
 	 * @return bool
 	 */
 	public function is_free_shipping_available( $is_available, $package, $free_shipping_method ): bool {
-		// Get array of excluded product IDs from comma-separated string in settings.
-		$excluded_product_ids = $free_shipping_method->get_option( 'excluded_products', '' );
-
 		$total_free_shipping_eligible_cost = 0;
 
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			$product_id = (string) $cart_item['product_id'];
-
 			// Check if product is excluded via product-level meta setting.
-			$product_excluded_meta = get_post_meta( $cart_item['product_id'], '_exclude_from_free_shipping', true );
-			$is_excluded_by_meta   = 'yes' === $product_excluded_meta;
+			$is_excluded_by_meta = $this->is_product_excluded_by_meta( $cart_item['product_id'] );
 
 			// Check if product belongs to an excluded category.
 			$is_excluded_by_category = $this->is_product_in_excluded_category( $cart_item['product_id'] );
@@ -55,6 +49,17 @@ class Free_Shipping_Excluder {
 		$free_shipping_threshold = (float) $free_shipping_method->get_option( 'min_amount', 0 );
 
 		return $total_free_shipping_eligible_cost >= $free_shipping_threshold;
+	}
+
+	/**
+	 * Check if a product is excluded from free shipping with product-level meta setting.
+	 *
+	 * @param int $product_id Product ID.
+	 * @return bool
+	 */
+	function is_product_excluded_by_meta( int $product_id ): bool {
+		$product_excluded_meta = get_post_meta( $product_id, '_exclude_from_free_shipping', true );
+		return 'yes' === $product_excluded_meta;
 	}
 
 	/**
