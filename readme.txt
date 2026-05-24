@@ -8,7 +8,7 @@ Requires PHP: 8.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Exclude specific products or entire product categories from being counted towards the free shipping threshold, or completely disable free shipping for the entire order if a specific product is in the cart.
+Exclude specific products or categories from the free shipping threshold, or disable free shipping if specific products are in the cart.
 
 == Description ==
 
