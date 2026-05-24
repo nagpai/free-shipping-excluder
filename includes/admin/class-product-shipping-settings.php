@@ -58,6 +58,15 @@ class Product_Shipping_Settings {
 				'desc_tip'    => true,
 			)
 		);
+
+		woocommerce_wp_checkbox(
+			array(
+				'id'          => '_disable_free_shipping',
+				'label'       => __( 'Disable free shipping if in cart', 'free-shipping-excluder' ),
+				'description' => __( 'Completely disables free shipping for the entire order if this product is in the cart, regardless of any thresholds.', 'free-shipping-excluder' ),
+				'desc_tip'    => true,
+			)
+		);
 	}
 
 	/**
@@ -84,5 +93,8 @@ class Product_Shipping_Settings {
 
 		$exclude_from_free_shipping = isset( $_POST['_exclude_from_free_shipping'] ) ? 'yes' : 'no';
 		update_post_meta( $post_id, '_exclude_from_free_shipping', $exclude_from_free_shipping );
+
+		$disable_free_shipping = isset( $_POST['_disable_free_shipping'] ) ? 'yes' : 'no';
+		update_post_meta( $post_id, '_disable_free_shipping', $disable_free_shipping );
 	}
 }

@@ -55,8 +55,8 @@ class Admin_Assets {
 						
 						$('#shipping_product_data .options_group').each(function() {
 							var \$group = $(this);
-							// Keep only the group that contains our custom field
-							if (\$group.find('#_exclude_from_free_shipping').length === 0) {
+							// Keep only the group that contains our custom fields
+							if (\$group.find('#_exclude_from_free_shipping').length === 0 && \$group.find('#_disable_free_shipping').length === 0) {
 								removedElements.push({
 									element: \$group.clone(true),
 									index: \$group.index()

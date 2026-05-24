@@ -39,6 +39,12 @@ class Free_Shipping_Excluder {
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
 			$product_id = (string) $cart_item['product_id'];
 
+			// Check if product completely disables free shipping if in cart.
+			$product_disables_free_shipping = get_post_meta( $cart_item['product_id'], '_disable_free_shipping', true );
+			if ( 'yes' === $product_disables_free_shipping ) {
+				return false;
+			}
+
 			// Check if product is excluded via product-level meta setting.
 			$product_excluded_meta = get_post_meta( $cart_item['product_id'], '_exclude_from_free_shipping', true );
 			$is_excluded_by_meta   = 'yes' === $product_excluded_meta;
