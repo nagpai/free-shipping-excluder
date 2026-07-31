@@ -13,7 +13,7 @@
       "step": "installPlugin",
       "pluginData": {
         "resource": "url",
-        "url": "https://github-proxy.com/proxy/?repo=nagpai/free-shipping-excluder&branch=main"
+        "url": "https://github.com/nagpai/free-shipping-excluder/releases/download/1.3.0/free-shipping-excluder.zip"
       },
       "options": {
         "activate": true
